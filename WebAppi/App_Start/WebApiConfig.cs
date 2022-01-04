@@ -12,7 +12,7 @@ namespace WebAppi
             // Configuración y servicios de API web
 
             // Rutas de API web
-            config.MapHttpAttributeRoutes();
+            config.EnableCors();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

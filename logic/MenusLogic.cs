@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data;
 using Domain;
 using FluentValidation;
 using logic.validations;
 
 namespace logic
 {
-    class MenusLogic : BaseLogic, IABM<Menus>
+    public class MenusLogic : BaseLogic, IABM<Menus>
     {
         public void Delete(int id)
         {
