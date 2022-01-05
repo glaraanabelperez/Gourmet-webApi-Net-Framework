@@ -58,6 +58,8 @@
     <Compile Include="IABM.cs" />
     <Compile Include="MenusLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\MenuMeal.cs" />
+    <Compile Include="Utils\MapEntityDto.cs" />
     <Compile Include="validations\MenusValidator.cs" />
   </ItemGroup>
   <ItemGroup>

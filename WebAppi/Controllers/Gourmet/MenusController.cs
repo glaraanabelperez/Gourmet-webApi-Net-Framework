@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Domain;
 using logic;
-using WebAppi.Models.menus;
+
 
 
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class MenusController : ApiController, IABMControllers<MenusRequest>
+    public class MenusController : ApiController, IABMControllers<MenusDto>
     {
         public MenusLogic menuLogic = new MenusLogic();
 
@@ -25,24 +27,22 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpGet]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult Get()
         {
             try
             {
-                List<MenusResponse> customersResponse;
-                var menus = menuLogic.GetAll();
-                //customersResponse = menus.Select(c => c.MapMeuToMenuResponse()).ToList();
+                List<MenusDto> menuDto;
+                menuDto = menuLogic.GetAll();
+                //menuResponse = menus.Select(menu => new MenusResponse
+                //{
+                //    id = menu.id,
+                //    date = menu.date,
+                //    Meals = menu.Meals,
+                //    state = menu.state
 
-                customersResponse = menus.Select( menu => new MenusResponse
-                {
-                    id = menu.id,
-                    date = menu.date,
-                    Meals = menu.Meals,
-                    state = menu.state
+                //}).ToList();
 
-                }).ToList();
-
-                return Ok(customersResponse);
+                return Ok(menuDto);
             }
             catch (Exception ex)
             {
@@ -50,12 +50,20 @@ namespace WebAppi.Controllers.Gourmet
             }
         }
 
-        public IHttpActionResult Insert([FromBody] MenusRequest enity)
+        public IHttpActionResult Insert([FromBody] MenusDto menuReq)
         {
-            throw new NotImplementedException();
+            try
+            {
+                menuLogic.Insert(menuReq);
+                return Content(HttpStatusCode.Created, menuReq);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
         }
 
-        public IHttpActionResult Put([FromBody] MenusRequest enity)
+        public IHttpActionResult Put([FromBody] MenusDto enity)
         {
             throw new NotImplementedException();
         }

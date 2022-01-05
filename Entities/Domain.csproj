@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Companies.cs" />
+    <Compile Include="Dto%27s\MealsDto.cs" />
+    <Compile Include="Dto%27s\MenusDto.cs" />
     <Compile Include="Meals.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="Orders.cs" />
