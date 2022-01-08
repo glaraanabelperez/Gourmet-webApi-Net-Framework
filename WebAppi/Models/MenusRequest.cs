@@ -1,9 +1,9 @@
 
 using System;
 
-namespace Domain
+namespace WebAppi.Controllers
 {
-    public  class MenusDto 
+    public  class MenusRequest
     {
     
         public int id { get; set; }
@@ -13,8 +13,6 @@ namespace Domain
         public string state { get; set; }
 
         public DateTime date { get; set; }
-
-        public  MealsDto Meals { get; set; }
 
     }
 }

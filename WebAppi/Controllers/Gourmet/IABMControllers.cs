@@ -11,13 +11,14 @@ namespace WebAppi.Controllers.Gourmet
     {
       
         [HttpGet]
-        IHttpActionResult Get(string id);
+        IHttpActionResult Get(int id);
+
+        [HttpGet]
+        IHttpActionResult Get();
 
         [HttpPost]
         IHttpActionResult Insert([FromBody] T enity);
 
-        [HttpPut]
-        IHttpActionResult Put([FromBody] T enity);
 
         [HttpDelete]
         IHttpActionResult Delete(int id);

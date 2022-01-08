@@ -16,6 +16,5 @@ namespace logic
 
         void Insert (T entity);
 
-        void Update(T entity);
     }
 }

@@ -14,23 +14,37 @@ namespace logic.Utils
             {
                 Menus m = new Menus();
                     m.id = menu.id;
-                    m.idMeal = menu.idMeals;
+                    m.idMeal = menu.idMeal;
                     m.date = menu.date;
                     m.state = menu.state;
 
                 return m;
             }
 
-        public static MenusDto MapToMenuDto(this Menus menu)
-        {
-            MenusDto menuDto = new MenusDto();
-                menuDto.id = menu.id;
-                menuDto.idMeals = menu.idMeal;
-                menuDto.date = menu.date;
-                menuDto.state = menu.state;
+            public static MenusDto MapToMenuDto(this Menus menu)
+            {
+                MenusDto menuDto = new MenusDto();
+               
+                    menuDto.id = menu.id;
+                    menuDto.idMeal = menu.idMeal;
+                    menuDto.Meals = menu.MapToMealsDto();
+                    menuDto.date = menu.date;
+                    menuDto.state = menu.state;
+                
+                return menuDto;
+            }
 
-            return menuDto;
-        }
+            public static MealsDto MapToMealsDto(this Menus menu)
+            {
+                MealsDto meal = new MealsDto();
+                meal.id = menu.Meals.id;
+                meal.title = menu.Meals.title;
+                meal.type = menu.Meals.type;
+                meal.description = menu.Meals.description;
+                meal.state = menu.Meals.state;
+
+                return meal;
+            }
     }
 }
 
