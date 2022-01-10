@@ -43,6 +43,21 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpGet]
+        public IHttpActionResult Get([FromUri] string date)
+        {
+            try
+            {
+                List<MenusDto> menuDtoList;
+                menuDtoList = menuLogic.GetAllFilterDate(date);
+                return Ok(menuDtoList);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+
+        [HttpGet]
         public IHttpActionResult Get()
         {
             try
@@ -71,6 +86,18 @@ namespace WebAppi.Controllers.Gourmet
             }
         }
 
- 
+        [HttpPut]
+        public IHttpActionResult Update([FromBody] MenusRequest menuRequest)
+        {
+            try
+            {
+                menuLogic.Update(menuRequest.MapToMenuDto());
+                return Content(HttpStatusCode.OK, "Accion exitosa");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
     }
 }

@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using Domain;
+using FluentValidation;
 using logic.Queries;
-
+using logic.Utils;
+using logic.validations;
 
 namespace logic
 {
-    public class MenusLogic : IABM<MenusDto>
+    public class OrdersLogic : IABM<OrdersDto>
     {
-        private readonly MenuQueries MenuQueri;
+        private readonly OrdersQuerie OrderQuerie;
 
-        public MenusLogic()
+        public OrdersLogic()
         {
-            this.MenuQueri = new MenuQueries();
+            this.OrderQuerie = new OrdersQuerie();
         }
+
         public void Delete(int id)
         {
+            //accion solo para clientes    
             try
             {
-                this.MenuQueri.DeleteQuerie(id);
+                this.OrderQuerie.DeleteQuerie(id);
             }
             catch (Exception e)
             {
@@ -26,11 +32,11 @@ namespace logic
             }
         }
 
-        public List<MenusDto> GetAll()
+        public List<OrdersDto> GetAll()
         {
             try
             {
-                return this.MenuQueri.GetAllQuerie();
+                return this.OrderQuerie.GetAllQuerie();
             }
             catch (Exception e)
             {
@@ -38,37 +44,12 @@ namespace logic
             }
         }
 
-        public List<MenusDto> GetAllFilterDate(string date)
+        public OrdersDto GetById(int id)
         {
             try
             {
-                return this.MenuQueri.GetAllFilterDateQuerie(date);
+                return this.OrderQuerie.GetByIdQuerie(id);
 
-            }catch(Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public MenusDto GetById(int id)
-        {
-            try
-            {
-                return this.MenuQueri.GetByIdQuerie(id);
-                
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            
-        }
-
-        public void Insert(MenusDto menuDto)
-        {
-            try
-            {  
-                this.MenuQueri.InsertQuerie(menuDto);
             }
             catch (Exception e)
             {
@@ -76,11 +57,11 @@ namespace logic
             }
         }
 
-        public void Update(MenusDto menuDto)
+        public void Insert(OrdersDto OrdersDto)
         {
             try
             {
-                this.MenuQueri.UpdateQuerie(menuDto);
+                this.OrderQuerie.InsertQuerie(OrdersDto);
             }
             catch (Exception e)
             {
@@ -88,6 +69,29 @@ namespace logic
             }
         }
 
+        public void Update(OrdersDto OrdersDto)
+        {
+            try
+            {
+                this.OrderQuerie.UpdateQuerie(OrdersDto);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
+        public void UpdateState(OrdersDto OrdersDto)
+        {
+            try
+            {
+                this.OrderQuerie.UpdateStateQuerie(OrdersDto);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
+
 }

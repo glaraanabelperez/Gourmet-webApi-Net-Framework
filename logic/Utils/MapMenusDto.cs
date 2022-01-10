@@ -7,7 +7,7 @@ using Domain;
 
 namespace logic.Utils
 {
-    public static class MapEntityDto
+    public static class MapMenusDto
     {
       
             public static Menus MapToMenus(this MenusDto menu)

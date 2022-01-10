@@ -22,5 +22,8 @@ namespace WebAppi.Controllers.Gourmet
 
         [HttpDelete]
         IHttpActionResult Delete(int id);
+
+        [HttpPut]
+        IHttpActionResult Update([FromBody] T enity);
     }
 }
