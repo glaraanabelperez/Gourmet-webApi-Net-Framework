@@ -17,7 +17,7 @@ namespace logic
                 var menu = (from m in context.Menus
                             where m.id == id
                             select m).Single();
-
+                
                 menu.state = "borrado";
                 context.SaveChanges();
             }
@@ -75,7 +75,7 @@ namespace logic
         {
             try
             {
-                var menu = context.Menus.Single(x => x.id == id);
+                var menu = context.Menus.Single(x => x.id == id && (x.state == "suspendido" || x.state == "activo"));
                 return menu.MapToMenuDto();
 
             }
@@ -91,6 +91,8 @@ namespace logic
             try
             {
                 Menus menu = menuDto.MapToMenus();
+                var validateData = new MenusInsertValidator();
+                validateData.ValidateAndThrow(menuDto);
                 var m = context.Menus.Add(menu);
                 context.SaveChanges();
             }
@@ -101,7 +103,7 @@ namespace logic
         }
 
         public void UpdateState(int id, string state)
-        {
+        {           
             try
             {
                 var itemToUpdate = context.Menus.Single(x => x.id == id);

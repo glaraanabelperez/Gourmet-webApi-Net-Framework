@@ -63,6 +63,7 @@
     <Compile Include="Utils\MapClientDto.cs" />
     <Compile Include="Utils\MapOrdersDto.cs" />
     <Compile Include="Utils\MapMenusDto.cs" />
+    <Compile Include="Utils\States.cs" />
     <Compile Include="validations\OrdersDateGreaterThanValidator.cs" />
     <Compile Include="validations\OrdersUpdateValidator.cs" />
     <Compile Include="validations\OrdersInsertValidator.cs" />

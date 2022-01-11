@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using Domain;
 using FluentValidation;
-using logic.Queries;
 using logic.Utils;
 using logic.validations;
 

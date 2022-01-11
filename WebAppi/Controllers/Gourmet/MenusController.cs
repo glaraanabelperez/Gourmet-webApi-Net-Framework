@@ -95,13 +95,13 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateState(int id, [FromBody] MenusRequest menuRequest)
+        public IHttpActionResult UpdateState([FromUri] int id, string state)
         {
-            if (menuRequest.state!="" ||  menuRequest.state!=null)
+            if (state.ValidateState())
             {
                 try
                 {
-                    menuLogic.UpdateState(id, menuRequest.state);
+                    menuLogic.UpdateState(id, state);
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
                 catch (Exception e )
@@ -111,9 +111,9 @@ namespace WebAppi.Controllers.Gourmet
             }
             else
             {
-                return BadRequest();
+                return Content(HttpStatusCode.BadRequest, "El estado a asignar no existe");
             }
-           
+
         }
     }
 }

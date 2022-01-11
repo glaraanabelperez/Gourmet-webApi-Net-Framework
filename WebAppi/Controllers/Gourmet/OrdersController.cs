@@ -119,9 +119,9 @@ namespace WebAppi.Controllers.Gourmet
 
         [Route("api/updateState")]
         [HttpPut]
-        public IHttpActionResult UpdateState(int id, [FromBody] OrdersRequest orderRequest)
+        public IHttpActionResult UpdateState([FromUri] int id, string state)
         {
-            if (orderRequest.state!=null || orderRequest.state!="")
+            if (state!=null || state!="")
             {
                 try
                 {
