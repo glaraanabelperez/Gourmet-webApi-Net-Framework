@@ -10,21 +10,40 @@ using logic.validations;
 
 namespace logic
 {
-    public class OrdersLogic : IABM<OrdersDto>
+    public class OrdersLogic : BaseLogic, IABM<OrdersDto>
     {
-        private readonly OrdersQuerie OrderQuerie;
-
-        public OrdersLogic()
-        {
-            this.OrderQuerie = new OrdersQuerie();
-        }
 
         public void Delete(int id)
         {
-            //accion solo para clientes    
             try
             {
-                this.OrderQuerie.DeleteQuerie(id);
+
+                var order = (from o in context.Orders
+                             where o.id == id
+                             select o).Single();
+                var validarFecha = new OrdersGreaterThanValidator();
+                validarFecha.ValidateAndThrow(order.Menus.date);
+                order.state = "borrado";
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void Cancel(int id)
+        {
+            try
+            {
+
+                var order = (from o in context.Orders
+                             where o.id == id
+                             select o).Single();
+                var validarFecha = new OrdersDateLessThanValidator();
+                validarFecha.ValidateAndThrow(order.Menus.date);
+                order.state = "Cancelado";
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -36,7 +55,60 @@ namespace logic
         {
             try
             {
-                return this.OrderQuerie.GetAllQuerie();
+                var orderList = context.Orders.Where(x => x.state == "pendiente" || x.state == "entregado").ToList();
+                List<OrdersDto> list = new List<OrdersDto>();
+
+                foreach (Orders o in orderList)
+                {
+                    list.Add(o.MapToOrdersDto());
+                }
+
+                return list;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<OrdersDto> GetAllFilterDate(string date)
+        {
+            try
+            {
+                var orderList = context.Orders.Where(x =>
+                               x.Menus.date.ToString() == date && (x.state == "pendiente" || x.state == "entregado")).ToList();
+
+                List<OrdersDto> list = new List<OrdersDto>();
+
+                foreach (Orders o in orderList)
+                {
+                    list.Add(o.MapToOrdersDto());
+                }
+
+                return list;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<OrdersDto> GetAllFilterUserQuerie(int idUser)
+        {
+            try
+            {
+                var orderList = context.Orders.Where(x =>
+                x.idUser == idUser && (x.state == "pendiente" || x.state == "entregado")).ToList();
+
+                List<OrdersDto> list = new List<OrdersDto>();
+
+                foreach (Orders o in orderList)
+                {
+                    list.Add(o.MapToOrdersDto());
+                }
+
+                return list;
+
             }
             catch (Exception e)
             {
@@ -48,8 +120,8 @@ namespace logic
         {
             try
             {
-                return this.OrderQuerie.GetByIdQuerie(id);
-
+               var order = context.Orders.Single(x => x.id == id && x.state == "pendiente" || x.state == "entregado");
+               return order.MapToOrdersDto();
             }
             catch (Exception e)
             {
@@ -58,10 +130,19 @@ namespace logic
         }
 
         public void Insert(OrdersDto OrdersDto)
-        {
+        {         
             try
             {
-                this.OrderQuerie.InsertQuerie(OrdersDto);
+               var validateDto = new OrdersInsertValidator();
+                validateDto.ValidateAndThrow(OrdersDto);
+
+               var menuDate = context.Menus.Single(x => x.id == OrdersDto.idMenu);
+               var validateMenuDate = new OrdersGreaterThanValidator();
+                validateMenuDate.ValidateAndThrow(menuDate.date);
+
+               Orders order = OrdersDto.MapToOrder();
+               var m = context.Orders.Add(order);
+               context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -69,11 +150,20 @@ namespace logic
             }
         }
 
-        public void Update(OrdersDto OrdersDto)
+        public void Update(int id, OrdersDto OrdersDto)
         {
             try
             {
-                this.OrderQuerie.UpdateQuerie(OrdersDto);
+                var validar = new OrdersUpdateValidator();
+                validar.ValidateAndThrow(OrdersDto);
+
+                Orders Order = context.Orders.Single(x => x.id == id);
+                var validarFecha = new OrdersGreaterThanValidator();
+                validarFecha.ValidateAndThrow(Order.Menus.date);
+
+                Order.amount = OrdersDto.amount;
+                Order.deliveryAddress = OrdersDto.deliveryAddress;
+                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -81,17 +171,25 @@ namespace logic
             }
         }
 
-        public void UpdateState(OrdersDto OrdersDto)
+        public void UpdateState(int id, string state)
         {
+            //Pendiente vs entregado; accion admin
             try
             {
-                this.OrderQuerie.UpdateStateQuerie(OrdersDto);
+                Orders Order = context.Orders.Single(x => x.id == id);
+                var validarFecha = new OrdersDateLessThanValidator();
+                validarFecha.ValidateAndThrow(Order.Menus.date);
+                Order.state = state;
+                context.SaveChanges();
             }
             catch (Exception e)
             {
                 throw e;
             }
+          
         }
+
+       
     }
 
 }

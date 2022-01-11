@@ -21,6 +21,19 @@ namespace logic.Utils
             return menuDto;
         }
 
+        public static OrdersDto MapToOrderDto(this OrdersRequest order)
+        {
+            OrdersDto orderDto = new OrdersDto();
+            orderDto.id = order.id;
+            orderDto.idMenu = order.idMenu;
+            orderDto.idUser = order.idUser;
+            orderDto.state = order.state;
+            orderDto.deliveryAddress = order.deliveryAddress;
+            orderDto.amount = order.amount;
+
+            return orderDto;
+        }
+
 
     }
 }

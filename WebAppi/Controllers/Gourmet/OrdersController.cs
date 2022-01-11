@@ -5,21 +5,23 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Domain;
+using FluentValidation;
 using logic;
 using logic.Utils;
 
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class MenusController : ApiController, IABMControllers<MenusRequest>
+    public class OrdersController : ApiController, IABMControllers<OrdersRequest>
     {
+        public OrdersLogic orderLogic = new OrdersLogic();
         public MenusLogic menuLogic = new MenusLogic();
 
         public IHttpActionResult Delete(int id)
         {
             try
             {
-                menuLogic.Delete(id);
+                orderLogic.Delete(id);
                 return Content(HttpStatusCode.OK, "Accion exitosa");
             }
             catch (Exception e)
@@ -33,8 +35,8 @@ namespace WebAppi.Controllers.Gourmet
         {
             try
             {
-                MenusDto menuDto=menuLogic.GetById(id);
-                return Ok(menuDto);
+                OrdersDto orderDto= orderLogic.GetById(id);
+                return Ok(orderDto);
             }
             catch (Exception e)
             {
@@ -47,9 +49,9 @@ namespace WebAppi.Controllers.Gourmet
         {
             try
             {
-                List<MenusDto> menuDtoList;
-                menuDtoList = menuLogic.GetAllFilterDate(date);
-                return Ok(menuDtoList);
+                List<OrdersDto> orderDToList;
+                orderDToList = orderLogic.GetAllFilterDate(date);
+                return Ok(orderDToList);
             }
             catch (Exception e)
             {
@@ -62,9 +64,9 @@ namespace WebAppi.Controllers.Gourmet
         {
             try
             {
-                List<MenusDto> menuDtoList;
-                menuDtoList = menuLogic.GetAll();
-                return Ok(menuDtoList);
+                List<OrdersDto> orderDToList;
+                orderDToList = orderLogic.GetAll();
+                return Ok(orderDToList);
             }
             catch (Exception ex)
             {
@@ -73,18 +75,38 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpPost]
-        public IHttpActionResult Insert([FromBody] MenusRequest menuRequest)
+        public IHttpActionResult Insert([FromBody] OrdersRequest orderRequest)
+        {
+           try
+           {
+                var menu=menuLogic.GetById(orderRequest.idMenu);
+
+                OrdersDto orderDto = orderRequest.MapToOrderDto();
+                orderDto.MenusDto = menu;
+                orderLogic.Insert(orderDto);
+
+               return Content(HttpStatusCode.OK, "Accion exitosa");
+           }
+           catch (Exception ex)
+           {
+               return Content(HttpStatusCode.BadRequest, ex.Message);
+           }
+            
+        }
+
+        [HttpPut]
+        public IHttpActionResult Update(int id, [FromBody] OrdersRequest orderRequest)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    menuLogic.Insert(menuRequest.MapToMenuDto());
+                    orderLogic.Update(id, orderRequest.MapToOrderDto());
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
-                    return Content(HttpStatusCode.BadRequest, ex.Message);
+                    return Content(HttpStatusCode.BadRequest, "Los datos a ingresar no son correctos");
                 }
             }
             else
@@ -94,26 +116,29 @@ namespace WebAppi.Controllers.Gourmet
            
         }
 
+
+        [Route("api/updateState")]
         [HttpPut]
-        public IHttpActionResult UpdateState(int id, [FromBody] MenusRequest menuRequest)
+        public IHttpActionResult UpdateState(int id, [FromBody] OrdersRequest orderRequest)
         {
-            if (menuRequest.state!="" ||  menuRequest.state!=null)
+            if (orderRequest.state!=null || orderRequest.state!="")
             {
                 try
                 {
-                    menuLogic.UpdateState(id, menuRequest.state);
+                    orderLogic.UpdateState(id, state);
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
-                catch (Exception e )
+                catch (Exception)
                 {
-                    return Content(HttpStatusCode.BadRequest, e.Message);
+                    return Content(HttpStatusCode.BadRequest, "Los datos a ingresar no son correctos");
                 }
             }
             else
             {
                 return BadRequest();
             }
-           
+
         }
+
     }
 }

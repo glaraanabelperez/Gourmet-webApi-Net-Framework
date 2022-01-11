@@ -5,11 +5,11 @@ using FluentValidation;
 
 namespace logic.validations
 {
-    class OrdersGreaterThanValidator : AbstractValidator<Orders>
+    class OrdersGreaterThanValidator : AbstractValidator<DateTime>
     {
         public OrdersGreaterThanValidator( )
         {
-            RuleFor(x => x.Menus.date).GreaterThan(DateTime.Now).WithMessage("La fecha debe ser antes de 24hs");
+            RuleFor(x => x).GreaterThan(DateTime.Now).WithMessage("La fecha debe ser con 24 hs de anticipacion");
 
         }
     }

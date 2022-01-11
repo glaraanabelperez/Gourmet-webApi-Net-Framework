@@ -59,15 +59,13 @@
     <Compile Include="OrdersLogic.cs" />
     <Compile Include="MenusLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\IQuerie.cs" />
-    <Compile Include="Queries\OrdersQuerie.cs" />
-    <Compile Include="Queries\MenuQueries.cs" />
     <Compile Include="Utils\MapCompaniesDto.cs" />
     <Compile Include="Utils\MapClientDto.cs" />
     <Compile Include="Utils\MapOrdersDto.cs" />
     <Compile Include="Utils\MapMenusDto.cs" />
     <Compile Include="validations\OrdersDateGreaterThanValidator.cs" />
-    <Compile Include="validations\OrdersPropertiesValidator.cs" />
+    <Compile Include="validations\OrdersUpdateValidator.cs" />
+    <Compile Include="validations\OrdersInsertValidator.cs" />
     <Compile Include="validations\OrdersDateLessThanValidator.cs" />
     <Compile Include="validations\MenusUpdateValidator.cs" />
     <Compile Include="validations\MenusInsertValidator.cs" />

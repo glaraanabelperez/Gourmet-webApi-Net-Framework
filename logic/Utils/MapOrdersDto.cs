@@ -18,7 +18,8 @@ namespace logic.Utils
                     o.idUser = order.idUser;
                     o.amount = order.amount;
                     o.state = order.state;
-                
+                    o.deliveryAddress = order.deliveryAddress;
+
                 return o;
             }
 
@@ -32,8 +33,10 @@ namespace logic.Utils
                     o.ClientDto = order.Users.MapToClient();
                     o.amount = order.amount;
                     o.state = order.state;
+                    o.deliveryAddress = order.deliveryAddress;
 
-                    return o;
+
+            return o;
 
             }
 
