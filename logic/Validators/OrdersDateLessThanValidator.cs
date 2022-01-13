@@ -9,7 +9,7 @@ namespace logic.validations
     {
         public OrdersDateLessThanValidator( )
         {
-            RuleFor(x => x).LessThan(DateTime.Now).WithMessage("La fecha debe ser luego de las 24hs de la fecha de entrega");
+            RuleFor(x => x).LessThan(DateTime.Now.AddDays(-1)).WithMessage("La fecha debe ser luego de las 24hs de la fecha de entrega");
 
         }
     }

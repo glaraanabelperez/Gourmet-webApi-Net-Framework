@@ -1,8 +1,9 @@
 
-namespace Domain
+namespace WebAppi.Controllers
 {
-    public  class UsersDto
+    public  class UserRequest
     {
+
         public int id { get; set; }
 
         public string email { get; set; }
@@ -20,9 +21,6 @@ namespace Domain
         public string state { get; set; }
 
         public int idCompany { get; set; }
-
-        public virtual CompaniesDto Companies { get; set; }
-
 
     }
 }

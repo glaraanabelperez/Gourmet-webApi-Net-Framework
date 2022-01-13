@@ -18,7 +18,7 @@ namespace Domain
 
         public virtual MenusDto MenusDto { get; set; }
 
-        public virtual ClientDto ClientDto { get; set; }
+        public virtual UsersDto userDto { get; set; }
 
     }
 }

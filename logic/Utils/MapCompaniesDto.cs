@@ -21,6 +21,27 @@ namespace logic.Utils
             return c;
         }
 
+        public static Companies MapToCompanies(this CompaniesDto company)
+        {
+            Companies c = new Companies();
+            c.id = company.id;
+            c.name = company.name;
+            c.phone = company.phone;
+            c.direction = company.direction;
+
+            return c;
+        }
+
+        public static Companies MapToCompanies(this CompaniesDto company, Companies c)
+        {
+            c.id = company.id;
+            c.name = company.name;
+            c.phone = company.phone;
+            c.direction = company.direction;
+
+            return c;
+        }
+
     }
 }
 

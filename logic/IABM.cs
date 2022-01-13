@@ -12,11 +12,12 @@ namespace logic
 
         T GetById(int id) ;
 
-        void Delete(int  id);
-
         void Insert (T entity);
 
-        void UpdateState(int id, string state);
+        void Update(int id, T entity);
+
+        void Update( int id, string state);
+
 
     }
 }

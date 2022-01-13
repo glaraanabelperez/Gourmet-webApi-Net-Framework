@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Companies.cs" />
-    <Compile Include="Dto%27s\ClientDto.cs" />
     <Compile Include="Dto%27s\CompaniesDto.cs" />
     <Compile Include="Dto%27s\UsersDto.cs" />
     <Compile Include="Dto%27s\OrdersDto.cs" />

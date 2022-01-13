@@ -34,6 +34,43 @@ namespace logic.Utils
             return orderDto;
         }
 
+        public static MealsDto MapToMealsDto(this MealsRequest meal)
+        {
+            MealsDto mealDto = new MealsDto();
+            mealDto.id = meal.id;
+            mealDto.type = meal.type;
+            mealDto.title = meal.title;
+            mealDto.description = meal.description;
+
+            return mealDto;
+        }
+
+        public static UsersDto MapToUserDto(this UserRequest user)
+        {
+            UsersDto usersDto = new UsersDto();
+            usersDto.id = user.id;
+            usersDto.email = user.email;
+            usersDto.pass = user.pass;
+            usersDto.name = user.name;
+            usersDto.lastName = user.lastName;
+            usersDto.direction = user.direction;
+            usersDto.phone = user.phone;
+            usersDto.idCompany = user.idCompany;
+
+            return usersDto;
+        }
+
+        public static CompaniesDto MapToCompaniesDto(this CompaniesRequest comapny)
+        {
+            CompaniesDto companyDto = new CompaniesDto();
+            companyDto.id = comapny.id;
+            companyDto.name = comapny.name;
+            companyDto.phone = comapny.phone;
+            companyDto.direction = comapny.direction;
+
+            return companyDto;
+        }
+
 
     }
 }

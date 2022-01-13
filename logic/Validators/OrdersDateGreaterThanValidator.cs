@@ -10,7 +10,6 @@ namespace logic.validations
         public OrdersGreaterThanValidator( )
         {
             RuleFor(x => x).GreaterThan(DateTime.Now).WithMessage("La fecha debe ser con 24 hs de anticipacion");
-
         }
     }
 }

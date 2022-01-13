@@ -12,9 +12,9 @@ using logic.Utils;
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class MenusController : ApiController, IABMControllers<MenusRequest>
+    public class MealsController : ApiController, IABMControllers<MealsRequest>
     {
-        public MenusLogic menuLogic = new MenusLogic();
+        public MealsLogic mealsLogic = new MealsLogic();
 
 
         [HttpGet]
@@ -22,23 +22,8 @@ namespace WebAppi.Controllers.Gourmet
         {
             try
             {
-                MenusDto menuDto=menuLogic.GetById(id);
+                MealsDto menuDto=mealsLogic.GetById(id);
                 return Ok(menuDto);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.NotFound, e.Message);
-            }
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetBy([FromUri] string date, string state)
-        {
-            try
-            {
-                List<MenusDto> menuDtoList;
-                menuDtoList = menuLogic.GetBy(date, state);
-                return Ok(menuDtoList);
             }
             catch (Exception e)
             {
@@ -51,9 +36,9 @@ namespace WebAppi.Controllers.Gourmet
         {
             try
             {
-                List<MenusDto> menuDtoList;
-                menuDtoList = menuLogic.GetAll();
-                return Ok(menuDtoList);
+                List<MealsDto> mealsDtoList;
+                mealsDtoList = mealsLogic.GetAll();
+                return Ok(mealsDtoList);
             }
             catch (Exception ex)
             {
@@ -61,14 +46,29 @@ namespace WebAppi.Controllers.Gourmet
             }
         }
 
+        [HttpGet]
+        public IHttpActionResult GetBy([FromUri]  string state)
+        {
+            try
+            {
+                List<MealsDto> MealsDtoList;
+                MealsDtoList = mealsLogic.GetBy(state);
+                return Ok(MealsDtoList);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+
         [HttpPost]
-        public IHttpActionResult Insert([FromBody] MenusRequest menuRequest)
+        public IHttpActionResult Insert([FromBody] MealsRequest mealRequest)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    menuLogic.Insert(menuRequest.MapToMenuDto());
+                    mealsLogic.Insert(mealRequest.MapToMealsDto());
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
                 catch (Exception ex)
@@ -90,7 +90,7 @@ namespace WebAppi.Controllers.Gourmet
             {
                 try
                 {
-                    menuLogic.Update(id, state);
+                    mealsLogic.Update(id, state);
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
                 catch (Exception e )
@@ -104,6 +104,5 @@ namespace WebAppi.Controllers.Gourmet
             }
 
         }
-
     }
 }

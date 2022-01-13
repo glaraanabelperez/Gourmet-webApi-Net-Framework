@@ -1,20 +1,13 @@
-﻿
+﻿using System.Collections.Generic;
 
-using System;
-using System.Collections.Generic;
-
-namespace logic.validations
+namespace Domain.States
 {
     public static class States
     {
-        public static bool ValidateState(string stateInput)
-        {
-            List<string> states = new List<string>() { "activo", "suspendido", "borrado", "pendiente", "entregado", "cancelado" };
-
-            return states.Contains(stateInput);
-        }
+        public static List<string> statesMenusMeals = new List<string>() { "disponible", "no-disponible" };
+        public static List<string> statesOrders = new List<string>() { "pendiente", "entregado", "cancelado" };
     }
-        
 }
+
 
 

@@ -30,15 +30,22 @@ namespace logic.Utils
                     o.idMenu = order.idMenu;
                     o.idUser = order.idUser;
                     o.MenusDto = order.Menus.MapToMenuDto();
-                    o.ClientDto = order.Users.MapToClient();
+                    o.userDto = order.Users.MapToUsersDto();
                     o.amount = order.amount;
                     o.state = order.state;
                     o.deliveryAddress = order.deliveryAddress;
 
-
-            return o;
-
+                return o;
             }
+
+        public static Orders MapToOrderUpdate(this OrdersDto orderDto, Orders Order)
+        {
+            Order.amount = orderDto.amount;
+            Order.deliveryAddress = orderDto.deliveryAddress;
+
+            return Order;
+
+        }
 
     }
 }

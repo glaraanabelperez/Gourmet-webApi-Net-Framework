@@ -10,62 +10,20 @@ namespace logic
 {
     public class MenusLogic : BaseLogic, IABM<MenusDto>
     {
-        public void Delete(int id)
-        {
-            try
-            {
-                var menu = (from m in context.Menus
-                            where m.id == id
-                            select m).Single();
-                
-                menu.state = "borrado";
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
 
         public List<MenusDto> GetAll()
         {
             try
             {
-                var menuList = context.Menus.Where(x => x.state == "activo" || x.state == "suspendido").ToList();
+                var menuList = context.Menus.ToList();
                 List<MenusDto> list = new List<MenusDto>();
-
                 foreach (Menus m in menuList)
                 {
                     list.Add(m.MapToMenuDto());
                 }
-
                 return list;
             }
             catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public List<MenusDto> GetAllFilterDate(string date)
-        {
-            try
-            {
-
-                var menuList = context.Menus.Where(x =>
-                x.date.ToString() == date && (x.state == "suspendido" || x.state == "activo")).ToList();
-
-                List<MenusDto> list = new List<MenusDto>();
-
-                foreach (Menus m in menuList)
-                {
-                    list.Add(m.MapToMenuDto());
-                }
-
-                return list;
-
-            }
-            catch(Exception e)
             {
                 throw e;
             }
@@ -75,15 +33,34 @@ namespace logic
         {
             try
             {
-                var menu = context.Menus.Single(x => x.id == id && (x.state == "suspendido" || x.state == "activo"));
+                var menu = context.Menus.Single(x => x.id == id);
                 return menu.MapToMenuDto();
-
             }
             catch (Exception e)
             {
                 throw e;
             }
-            
+
+        }
+
+        public List<MenusDto> GetBy(string date, string state)
+        {
+            try
+            {
+                var menuList = context.Menus.Where(x =>
+                x.date.ToString() == date && (x.state == state)).ToList();
+                List<MenusDto> list = new List<MenusDto>();
+                foreach (Menus m in menuList)
+                {
+                    list.Add(m.MapToMenuDto());
+                }
+
+                return list;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
 
         public void Insert(MenusDto menuDto)
@@ -93,7 +70,7 @@ namespace logic
                 Menus menu = menuDto.MapToMenus();
                 var validateData = new MenusInsertValidator();
                 validateData.ValidateAndThrow(menuDto);
-                var m = context.Menus.Add(menu);
+                context.Menus.Add(menu);
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -102,7 +79,7 @@ namespace logic
             }
         }
 
-        public void UpdateState(int id, string state)
+        public void Update(int id, string state)
         {           
             try
             {
@@ -116,6 +93,9 @@ namespace logic
             }
         }
 
-
+        public void Update(int id, MenusDto entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
