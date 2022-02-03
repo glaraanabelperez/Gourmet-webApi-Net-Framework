@@ -9,42 +9,39 @@ namespace logic.Utils
 {
     public static class MapMenusDto
     {
-      
-            public static Menus MapToMenus(this MenusDto menu)
-            {
-                Menus m = new Menus();
-                    m.id = menu.id;
-                    m.idMeal = menu.idMeal;
-                    m.date = menu.date;
-                    m.state = menu.state;
+        public static MenusDto MapToMenuDto(this Menus menu)
+        {
+            MenusDto menuDto = new MenusDto();
 
-                return m;
-            }
+            menuDto.id = menu.id;
+            menuDto.idMeal = menu.idMeal;
+            menuDto.Meals = menu.MapToMealsDto();
+            menuDto.date = menu.date;
+            menuDto.state = menu.state;
 
-            public static MenusDto MapToMenuDto(this Menus menu)
-            {
-                MenusDto menuDto = new MenusDto();
-               
-                    menuDto.id = menu.id;
-                    menuDto.idMeal = menu.idMeal;
-                    menuDto.Meals = menu.MapToMealsDto();
-                    menuDto.date = menu.date;
-                    menuDto.state = menu.state;
-                
-                return menuDto;
-            }
+            return menuDto;
+        }
+        public static Menus MapToMenus(this MenusDto m)
+        {
+            Menus menu = new Menus();
+            menu.idMeal = m.idMeal;
+            menu.date = m.date;
+            menu.state = m.state;
 
-            public static MealsDto MapToMealsDto(this Menus menu)
-            {
-                MealsDto meal = new MealsDto();
-                meal.id = menu.Meals.id;
-                meal.title = menu.Meals.title;
-                meal.type = menu.Meals.type;
-                meal.description = menu.Meals.description;
-                meal.state = menu.Meals.state;
+            return menu;
+        }
 
-                return meal;
-            }
+        public static MealsDto MapToMealsDto(this Menus menu)
+        {
+            MealsDto meal = new MealsDto();
+            meal.id = menu.Meals.id;
+            meal.title = menu.Meals.title;
+            meal.type = menu.Meals.type;
+            meal.description = menu.Meals.description;
+            meal.state = menu.Meals.state;
+
+            return meal;
+        }
     }
 }
 

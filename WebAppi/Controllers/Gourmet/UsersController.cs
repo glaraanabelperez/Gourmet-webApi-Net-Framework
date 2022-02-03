@@ -11,23 +11,9 @@ using logic.Utils;
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class UserControllers : ApiController, IABMControllers<UserRequest>
+    public class UserController : ApiController, IABMControllers<UserRequest>
     {
         public UsersLogic userLogic = new UsersLogic();
-
-        [HttpGet]
-        public IHttpActionResult GetById(int id)
-        {
-            try
-            {
-                UsersDto user =userLogic.GetById(id);
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.NotFound, e.Message);
-            }
-        }
 
         [HttpGet]
         public IHttpActionResult GetAll()
@@ -45,26 +31,11 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpGet]
-        public IHttpActionResult GetBy([FromUri] string state)
+        public IHttpActionResult GetById(int id)
         {
             try
             {
-                List<UsersDto> usersDtoList;
-                usersDtoList = userLogic.GetBy(state);
-                return Ok(usersDtoList);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.NotFound, e.Message);
-            }
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetBy([FromUri] string email, string pass)
-        {
-            try
-            {
-                UsersDto user = this.userLogic.Login(email, pass);
+                UsersDto user =userLogic.GetById(id);
                 return Ok(user);
             }
             catch (Exception e)
@@ -73,15 +44,45 @@ namespace WebAppi.Controllers.Gourmet
             }
         }
 
+        [Route("api/user/login")]
+        public IHttpActionResult Login([FromBody] LoginRequest loginReq)
+        {
+            try
+            {
+                UsersDto user = this.userLogic.Login(loginReq.email, loginReq.pass);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.NotFound, e.Message);
+            }
+        }
 
+        [Route("api/user/insert")]
         [HttpPost]
         public IHttpActionResult Insert([FromBody] UserRequest UserRequest)
+        {
+
+            try
+            {
+                userLogic.Insert(UserRequest.MapToUserDto());
+                return Content(HttpStatusCode.OK, "Accion exitosa");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+           
+        }
+
+        [HttpPut]
+        public IHttpActionResult Update(int id, [FromBody] UserRequest UserRequest)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    userLogic.Insert(UserRequest.MapToUserDto());
+                    userLogic.Update(id, UserRequest.MapToUserDto());
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
                 catch (Exception ex)
@@ -93,29 +94,7 @@ namespace WebAppi.Controllers.Gourmet
             {
                 return BadRequest();
             }
-           
         }
 
-        [HttpPut]
-        public IHttpActionResult Update([FromUri] int id, string state)
-        {
-            if (States.statesMenusMeals.Contains(state))
-            {
-                try
-                {
-                    userLogic.Update(id, state);
-                    return Content(HttpStatusCode.OK, "Accion exitosa");
-                }
-                catch (Exception e )
-                {
-                    return Content(HttpStatusCode.BadRequest, e.Message);
-                }
-            }
-            else
-            {
-                return Content(HttpStatusCode.BadRequest, "El estado a asignar no existe");
-            }
-
-        }
     }
 }

@@ -8,15 +8,15 @@ namespace logic
 {
     interface IABM <T>
     {
-        List<T> GetAll();
+        //List<T> GetAll();
 
-        T GetById(int id) ;
+        //T GetById(int id) ;
 
-        void Insert (T entity);
+        ////void Insert (T entity);
 
-        void Update(int id, T entity);
+        //void Update(int id, T entity);
 
-        void Update( int id, string state);
+        //void Update( int id, string state);
 
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Domain;
 using FluentValidation;
@@ -43,32 +44,11 @@ namespace logic
             
         }
 
-        public List<UsersDto> GetBy(string state)
-        {
-            try
-            {
-                var userList = context.Users.ToList().Where(x => x.state=="activo");
-                List<UsersDto> list = new List<UsersDto>();
-                foreach (Users u in userList)
-                {
-                    list.Add(u.MapToUsersDto());
-                }
-                return list;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
         public void Insert(UsersDto userDto)
         {
             try
             {
-                var validar = new UsersValidator();
-                validar.ValidateAndThrow(userDto);
-                Users user = userDto.MapToUsers();
-                context.Users.Add(user);
+                context.Users.Add(userDto.MapToUsers());
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -94,12 +74,12 @@ namespace logic
 
         public void Update(int id, UsersDto usersDto)
         {
+           
             try
             {
-                var validar = new UsersValidator();
-                validar.ValidateAndThrow(usersDto);
-                Users user = context.Users.Single(x => x.id == id);
-                user=usersDto.MapToUsers(user);
+                Users userEntity = context.Users.Single(x => x.id == id);
+                userEntity = usersDto.MapToUsersUpdate(userEntity);
+                context.Entry(userEntity).State = EntityState.Modified;
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -108,19 +88,6 @@ namespace logic
             }
         }
 
-        public void Update(int id, string state)
-        {
-            try
-            {
-                var itemToUpdate = context.Users.Single(x => x.id == id);
-                itemToUpdate.state = state;
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
 
 
     }

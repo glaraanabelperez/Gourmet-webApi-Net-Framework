@@ -4,8 +4,6 @@ namespace WebAppi.Controllers
     public  class UserRequest
     {
 
-        public int id { get; set; }
-
         public string email { get; set; }
 
         public string pass { get; set; }
@@ -18,9 +16,6 @@ namespace WebAppi.Controllers
 
         public string direction { get; set; }
 
-        public string state { get; set; }
-
-        public int idCompany { get; set; }
 
     }
 }

@@ -21,8 +21,5 @@ namespace Domain
 
         public int idCompany { get; set; }
 
-        public virtual CompaniesDto Companies { get; set; }
-
-
     }
 }

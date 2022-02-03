@@ -10,19 +10,17 @@ namespace WebAppi.Controllers.Gourmet
     interface IABMControllers<T>
     {
       
-        [HttpGet]
-        IHttpActionResult GetById(int id);
+        //[HttpGet]
+        //IHttpActionResult GetById(int id);
 
-        [HttpGet]
-        IHttpActionResult GetAll();
+        //[HttpGet]
+        //IHttpActionResult GetAll();
 
-        [HttpGet]
-        //IHttpActionResult GetByStateAndDate([FromUri] string date, string state);
 
-        [HttpPost]
-        IHttpActionResult Insert([FromBody] T enity);
+        //[HttpPost]
+        //IHttpActionResult Insert([FromBody] T enity);
 
-        [HttpPut]
-        IHttpActionResult Update([FromUri] int id, string state);
+        //[HttpPut]
+        //IHttpActionResult UpdateState(int id, [FromBody] T enity);
     }
 }

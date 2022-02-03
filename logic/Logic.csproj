@@ -67,15 +67,8 @@
     <Compile Include="Utils\MapMealsDto.cs" />
     <Compile Include="Utils\MapOrdersDto.cs" />
     <Compile Include="Utils\MapMenusDto.cs" />
-    <Compile Include="Validators\CompaniesValidator.cs" />
-    <Compile Include="Validators\UsersValidator.cs" />
-    <Compile Include="Validators\MealsValidator.cs" />
     <Compile Include="Validators\OrdersDateGreaterThanValidator.cs" />
-    <Compile Include="Validators\OrdersUpdateValidator.cs" />
-    <Compile Include="Validators\OrdersInsertValidator.cs" />
     <Compile Include="Validators\OrdersDateLessThanValidator.cs" />
-    <Compile Include="Validators\MenusUpdateValidator.cs" />
-    <Compile Include="Validators\MenusInsertValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

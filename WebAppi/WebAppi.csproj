@@ -235,7 +235,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CompaniesRequest.cs" />
+    <Compile Include="Models\loginRequest.cs" />
+    <Compile Include="Models\stateRequest.cs" />
     <Compile Include="Models\UserRequest.cs" />
     <Compile Include="Models\MealsRequest.cs" />
     <Compile Include="Models\OrdersRequest.cs" />

@@ -16,59 +16,29 @@ namespace WebAppi.Controllers.Gourmet
     {
         public MenusLogic menuLogic = new MenusLogic();
 
-
         [HttpGet]
-        public IHttpActionResult GetById(int id)
-        {
-            try
-            {
-                MenusDto menuDto=menuLogic.GetById(id);
-                return Ok(menuDto);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.NotFound, e.Message);
-            }
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetBy([FromUri] string date, string state)
+        public IHttpActionResult GetBy([FromUri] string date)
         {
             try
             {
                 List<MenusDto> menuDtoList;
-                menuDtoList = menuLogic.GetBy(date, state);
+                menuDtoList = menuLogic.GetBy(date);
                 return Ok(menuDtoList);
             }
             catch (Exception e)
             {
                 return Content(HttpStatusCode.NotFound, e.Message);
-            }
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetAll()
-        {
-            try
-            {
-                List<MenusDto> menuDtoList;
-                menuDtoList = menuLogic.GetAll();
-                return Ok(menuDtoList);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.NotFound, ex.Message);
             }
         }
 
         [HttpPost]
-        public IHttpActionResult Insert([FromBody] MenusRequest menuRequest)
+        public IHttpActionResult Insert([FromBody] List <MenusRequest> menuRequestList)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    menuLogic.Insert(menuRequest.MapToMenuDto());
+                    menuLogic.Insert(menuRequestList.MapToMenuDtoList());
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
                 catch (Exception ex)
@@ -78,32 +48,29 @@ namespace WebAppi.Controllers.Gourmet
             }
             else
             {
-                return BadRequest();
+                return Content(HttpStatusCode.BadRequest, "Hubo un problema con el modelo de datos");
             }
-           
+            
+       
         }
 
-        [HttpPut]
-        public IHttpActionResult Update([FromUri] int id, string state)
+        [HttpDelete]
+        public IHttpActionResult Delete([FromUri]  int id)
         {
-            if (States.statesMenusMeals.Contains(state))
-            {
-                try
-                {
-                    menuLogic.Update(id, state);
-                    return Content(HttpStatusCode.OK, "Accion exitosa");
-                }
-                catch (Exception e )
-                {
-                    return Content(HttpStatusCode.BadRequest, e.Message);
-                }
-            }
-            else
-            {
-                return Content(HttpStatusCode.BadRequest, "El estado a asignar no existe");
-            }
+      
+           try
+           {
+               menuLogic.Delete(id);
+               return Content(HttpStatusCode.OK, "Accion exitosa");
+           }
+           catch (Exception e )
+           {
+               return Content(HttpStatusCode.BadRequest, e.Message);
+           }
+          
 
         }
 
+ 
     }
 }

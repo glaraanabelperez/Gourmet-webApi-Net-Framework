@@ -9,7 +9,7 @@ namespace Domain
 
     public partial class CompaniesDto
     {
-   
+
         public int id { get; set; }
 
         public string name { get; set; }

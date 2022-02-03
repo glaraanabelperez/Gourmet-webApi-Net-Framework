@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 using Domain;
 using WebAppi.Controllers;
 
@@ -10,65 +7,63 @@ namespace logic.Utils
 {
     public static class MapRequestToDto
     {
-        public static MenusDto MapToMenuDto(this MenusRequest menu)
-        {
-            MenusDto menuDto = new MenusDto();
-                menuDto.id = menu.id;
-                menuDto.idMeal = menu.idMeal;
-                menuDto.date = menu.date;
-                menuDto.state = menu.state;
 
-            return menuDto;
+        public static List<MenusDto> MapToMenuDtoList(this List <MenusRequest> menuListRequest)
+        {
+            List<MenusDto> menuList = new List<MenusDto>();
+
+            foreach (MenusRequest m in menuListRequest)
+            {
+                MenusDto menuDto = new MenusDto();
+                menuDto.idMeal = m.idMeal;
+                menuDto.date = m.date;
+
+                menuList.Add(menuDto);
+            }
+
+            return menuList;
         }
 
-        public static OrdersDto MapToOrderDto(this OrdersRequest order)
+        public static List<OrdersDto> MapToOrderDtoList(this List<OrdersRequest> orders)
         {
-            OrdersDto orderDto = new OrdersDto();
-            orderDto.id = order.id;
-            orderDto.idMenu = order.idMenu;
-            orderDto.idUser = order.idUser;
-            orderDto.state = order.state;
-            orderDto.deliveryAddress = order.deliveryAddress;
-            orderDto.amount = order.amount;
+            List<OrdersDto> orderList = new List<OrdersDto>();
 
-            return orderDto;
+            foreach (OrdersRequest order in orders)
+            {
+                OrdersDto or = new OrdersDto();
+                or.idMenu = order.idMenu;
+                or.idUser = order.idUser;
+                or.deliveryAddress = order.deliveryAddress;
+                or.amount = order.amount;
+
+                orderList.Add(or);
+            }
+
+            return orderList;
         }
 
-        public static MealsDto MapToMealsDto(this MealsRequest meal)
+        public static MealsDto MapToMealsDto(this MealsRequest mealRequest)
         {
-            MealsDto mealDto = new MealsDto();
-            mealDto.id = meal.id;
-            mealDto.type = meal.type;
-            mealDto.title = meal.title;
-            mealDto.description = meal.description;
+            MealsDto meal = new MealsDto();
+            meal.type = mealRequest.type;
+            meal.title = mealRequest.title;
+            meal.description = mealRequest.description;
 
-            return mealDto;
+            return meal;
         }
 
         public static UsersDto MapToUserDto(this UserRequest user)
         {
             UsersDto usersDto = new UsersDto();
-            usersDto.id = user.id;
+
             usersDto.email = user.email;
             usersDto.pass = user.pass;
             usersDto.name = user.name;
             usersDto.lastName = user.lastName;
             usersDto.direction = user.direction;
             usersDto.phone = user.phone;
-            usersDto.idCompany = user.idCompany;
 
             return usersDto;
-        }
-
-        public static CompaniesDto MapToCompaniesDto(this CompaniesRequest comapny)
-        {
-            CompaniesDto companyDto = new CompaniesDto();
-            companyDto.id = comapny.id;
-            companyDto.name = comapny.name;
-            companyDto.phone = comapny.phone;
-            companyDto.direction = comapny.direction;
-
-            return companyDto;
         }
 
 

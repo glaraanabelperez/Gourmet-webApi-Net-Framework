@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using Domain.States;
 
 namespace logic.Utils
 {
@@ -20,40 +21,33 @@ namespace logic.Utils
                 c.lastName = user.lastName;
                 c.phone = user.phone;
                 c.direction = user.direction;
-                c.state = user.state;
-                c.idCompany = user.idCompany;
-                c.Companies = user.Companies.MapToCompaniesDto();
-            
+     
             return c;
         }
 
         public static Users MapToUsers(this UsersDto user)
         {
             Users u = new Users();
-            u.id = user.id;
             u.email = user.email;
             u.pass = user.pass;
             u.name = user.name;
             u.lastName = user.lastName;
             u.phone = user.phone;
             u.direction = user.direction;
-            u.state = user.state;
-            u.idCompany = user.idCompany;
+            u.state = States.available;
+            u.idCompany = 1;
 
             return u;
         }
 
-        public static Users MapToUsers(this UsersDto user, Users u)
+        public static Users MapToUsersUpdate(this UsersDto user, Users u)
         {
-            u.id = user.id;
             u.email = user.email;
             u.pass = user.pass;
             u.name = user.name;
             u.lastName = user.lastName;
             u.phone = user.phone;
             u.direction = user.direction;
-            u.state = user.state;
-            u.idCompany = user.idCompany;
 
             return u;
         }

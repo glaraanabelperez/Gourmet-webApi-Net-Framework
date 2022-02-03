@@ -12,24 +12,9 @@ using logic.Utils;
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class MealsController : ApiController, IABMControllers<MealsRequest>
+    public class MealsController : ApiController
     {
         public MealsLogic mealsLogic = new MealsLogic();
-
-
-        [HttpGet]
-        public IHttpActionResult GetById(int id)
-        {
-            try
-            {
-                MealsDto menuDto=mealsLogic.GetById(id);
-                return Ok(menuDto);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.NotFound, e.Message);
-            }
-        }
 
         [HttpGet]
         public IHttpActionResult GetAll()
@@ -43,21 +28,6 @@ namespace WebAppi.Controllers.Gourmet
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.NotFound, ex.Message);
-            }
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetBy([FromUri]  string state)
-        {
-            try
-            {
-                List<MealsDto> MealsDtoList;
-                MealsDtoList = mealsLogic.GetBy(state);
-                return Ok(MealsDtoList);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.NotFound, e.Message);
             }
         }
 
@@ -84,25 +54,40 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpPut]
-        public IHttpActionResult Update([FromUri] int id, string state)
+        public IHttpActionResult Update(int id, [FromBody] MealsRequest meals)
         {
-            if (States.statesMenusMeals.Contains(state))
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    mealsLogic.Update(id, state);
+                    mealsLogic.Update(id, meals.MapToMealsDto());
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
-                catch (Exception e )
+                catch (Exception e)
                 {
                     return Content(HttpStatusCode.BadRequest, e.Message);
                 }
             }
             else
             {
-                return Content(HttpStatusCode.BadRequest, "El estado a asignar no existe");
+                return Content(HttpStatusCode.BadRequest, "Hubo un problema con el modelo de datos");
             }
 
         }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+          try
+          {
+              mealsLogic.Delete(id);
+              return Content(HttpStatusCode.OK, "Accion exitosa");
+          }
+          catch (Exception e)
+          {
+              return Content(HttpStatusCode.BadRequest, e.Message);
+          }
+        }
+
     }
 }

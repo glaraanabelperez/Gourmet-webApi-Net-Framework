@@ -4,25 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using Domain.States;
 
 namespace logic.Utils
 {
     public static class MapOrdersDto
     {
-      
-            public static Orders MapToOrder(this OrdersDto order)
-            {
-                Orders o = new Orders();
-                    o.id = order.id;
-                    o.idMenu = order.idMenu;
-                    o.idUser = order.idUser;
-                    o.amount = order.amount;
-                    o.state = order.state;
-                    o.deliveryAddress = order.deliveryAddress;
-
-                return o;
-            }
-
             public static OrdersDto MapToOrdersDto(this Orders order)
             {
                     OrdersDto o = new OrdersDto();
@@ -38,14 +25,20 @@ namespace logic.Utils
                 return o;
             }
 
-        public static Orders MapToOrderUpdate(this OrdersDto orderDto, Orders Order)
-        {
-            Order.amount = orderDto.amount;
-            Order.deliveryAddress = orderDto.deliveryAddress;
+            public static Orders MapToOrder(this OrdersDto order)
+            {
+                    Orders o = new Orders();
+                    o.id = order.id;
+                    o.idMenu = order.idMenu;
+                    o.idUser = order.idUser;      
+                    o.amount = order.amount;
+                    o.state = States.pending;
+                    o.deliveryAddress = order.deliveryAddress;
 
-            return Order;
+                return o;
+            }
 
-        }
+     
 
     }
 }
