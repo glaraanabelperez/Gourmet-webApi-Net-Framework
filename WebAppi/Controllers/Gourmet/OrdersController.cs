@@ -46,7 +46,7 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpGet]
-        public IHttpActionResult GetBy(int id, string date)
+        public IHttpActionResult GetBy(int id, [FromUri] string date)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace WebAppi.Controllers.Gourmet
             {
                 try
                 {
-                    orderLogic.Update(id, state.state);
+                    orderLogic.Update(id, state.state, state.idUser);
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
                 catch (Exception ex)

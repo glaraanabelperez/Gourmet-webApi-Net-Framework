@@ -116,14 +116,25 @@ namespace logic
            
         }
 
-        public void Update(int id, string state)
+        public void Update(int id, string state, int id_user)
         {
             try
             {
                 Orders OrderToUpdate = context.Orders.Single(x => x.id == id);
-                var validarFecha = new OrdersDateLessThanValidator();
-                validarFecha.ValidateAndThrow(OrderToUpdate.Menus.date);
-                OrderToUpdate.state = state;
+
+                if (id_user == 1)
+                {
+                    
+                    var validarFecha = new OrdersDateLessThanValidator();
+                    validarFecha.ValidateAndThrow(OrderToUpdate.Menus.date);
+                    OrderToUpdate.state = state;
+                }
+                else
+                {
+                    var validarFecha = new OrdersGreaterThanValidator();
+                    validarFecha.ValidateAndThrow(OrderToUpdate.Menus.date);
+                    OrderToUpdate.state = state;
+                }
 
                 context.Entry(OrderToUpdate).State = EntityState.Modified;
                 context.SaveChanges();

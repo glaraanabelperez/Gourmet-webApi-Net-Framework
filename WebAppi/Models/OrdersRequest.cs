@@ -15,6 +15,7 @@ namespace WebAppi.Controllers
 
         public int amount { get; set; }
 
+        public string state { get; set; }
 
 
     }
