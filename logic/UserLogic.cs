@@ -11,7 +11,11 @@ namespace logic
 {
     public class UsersLogic : BaseLogic, IABM<UsersDto>
     {
-       
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<UsersDto> GetAll()
         {
             try
@@ -30,18 +34,9 @@ namespace logic
             }
         }
 
-        public UsersDto GetById(int id)
+        public List<UsersDto> GetBy(string date)
         {
-            try
-            {
-                var user = context.Users.Single(x => x.id == id );
-                return user.MapToUsersDto();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            
+            throw new NotImplementedException();
         }
 
         public void Insert(UsersDto userDto)

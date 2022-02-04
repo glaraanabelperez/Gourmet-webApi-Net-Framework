@@ -223,8 +223,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\Gourmet\IABMControllers.cs" />
-    <Compile Include="Controllers\Gourmet\CompaniesController.cs" />
     <Compile Include="Controllers\Gourmet\UsersController.cs" />
     <Compile Include="Controllers\Gourmet\MealsController.cs" />
     <Compile Include="Controllers\Gourmet\OrdersController.cs" />

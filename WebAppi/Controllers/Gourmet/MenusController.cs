@@ -12,7 +12,7 @@ using logic.Utils;
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class MenusController : ApiController, IABMControllers<MenusRequest>
+    public class MenusController : ApiController
     {
         public MenusLogic menuLogic = new MenusLogic();
 

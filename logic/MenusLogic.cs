@@ -12,6 +12,7 @@ namespace logic
 {
     public class MenusLogic : BaseLogic, IABM<MenusDto>
     {
+
         public List<MenusDto> GetAll()
         {
             try
@@ -84,6 +85,16 @@ namespace logic
                 }
             }
 
+        }
+
+        public void Insert(MenusDto entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(int id, MenusDto entity)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(int id)

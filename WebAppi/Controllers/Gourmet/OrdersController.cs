@@ -11,7 +11,7 @@ using logic.Utils;
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class OrdersController : ApiController, IABMControllers<OrdersRequest>
+    public class OrdersController : ApiController
     {
         public OrdersLogic orderLogic = new OrdersLogic();
 
@@ -46,7 +46,7 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpGet]
-        public IHttpActionResult GetABy(int id, string date)
+        public IHttpActionResult GetBy(int id, string date)
         {
             try
             {

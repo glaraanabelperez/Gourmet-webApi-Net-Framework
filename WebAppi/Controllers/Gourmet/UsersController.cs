@@ -11,7 +11,7 @@ using logic.Utils;
 namespace WebAppi.Controllers.Gourmet
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
-    public class UserController : ApiController, IABMControllers<UserRequest>
+    public class UserController : ApiController
     {
         public UsersLogic userLogic = new UsersLogic();
 
@@ -27,20 +27,6 @@ namespace WebAppi.Controllers.Gourmet
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.NotFound, ex.Message);
-            }
-        }
-
-        [HttpGet]
-        public IHttpActionResult GetById(int id)
-        {
-            try
-            {
-                UsersDto user =userLogic.GetById(id);
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.NotFound, e.Message);
             }
         }
 

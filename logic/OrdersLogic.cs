@@ -12,6 +12,24 @@ namespace logic
 {
     public class OrdersLogic : BaseLogic, IABM<OrdersDto>
     {
+        public void Delete(int id)
+        {
+            try
+            {
+                var validarFecha = new OrdersGreaterThanValidator();
+                Orders Order = context.Orders.Single(x => x.id == id);
+                validarFecha.ValidateAndThrow(Order.Menus.date);
+
+                Order.state = States.cancel;
+                context.Entry(Order).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public List<OrdersDto> GetAll()
         {
             try
@@ -116,25 +134,16 @@ namespace logic
             }
         }
 
-        public void Delete(int id)
-        {
-            try
-            {
-                var validarFecha = new OrdersGreaterThanValidator();
-                Orders Order = context.Orders.Single(x => x.id == id);
-                validarFecha.ValidateAndThrow(Order.Menus.date);
 
-                Order.state = States.cancel;
-                context.Entry(Order).State = EntityState.Modified;
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+        public void Insert(OrdersDto entity)
+        {
+            throw new NotImplementedException();
         }
 
-
+        public void Update(int id, OrdersDto entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
