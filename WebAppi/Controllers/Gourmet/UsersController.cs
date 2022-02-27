@@ -68,8 +68,8 @@ namespace WebAppi.Controllers.Gourmet
             {
                 try
                 {
-                    userLogic.Update(id, UserRequest.MapToUserDto());
-                    return Content(HttpStatusCode.OK, "Accion exitosa");
+                    
+                    return Ok(userLogic.Update(id, UserRequest.MapToUserDto()));
                 }
                 catch (Exception ex)
                 {

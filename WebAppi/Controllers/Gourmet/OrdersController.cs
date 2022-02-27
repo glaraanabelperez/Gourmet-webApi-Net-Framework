@@ -10,7 +10,13 @@ using logic.Utils;
 
 namespace WebAppi.Controllers.Gourmet
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    public class Count
+    {
+        public int id { get; set; }
+        public int count { get; set; }
+    }
+
+    [EnableCors(origins: "http://loca" +"lhost:4200", headers: "*", methods: "*")]
     public class OrdersController : ApiController
     {
         public OrdersLogic orderLogic = new OrdersLogic();
@@ -93,7 +99,31 @@ namespace WebAppi.Controllers.Gourmet
             {
                 try
                 {
-                    orderLogic.Update(id, state.state, state.idUser);
+                    orderLogic.UpdateState(id, state.state, state.idUser);
+                    return Content(HttpStatusCode.OK, "Accion exitosa");
+                }
+                catch (Exception ex)
+                {
+                    return Content(HttpStatusCode.BadRequest, ex.Message);
+                }
+            }
+            else
+            {
+                return Content(HttpStatusCode.BadRequest, "El estado a asignar no existe");
+            }
+
+        }
+
+        [Route("api/orders/updateCount")]
+        [HttpPut]
+        public IHttpActionResult UpdateCount([FromBody] Count data)
+        {
+            //orderRequest.Equals(States.pending || States.delivered)
+            if (data.count!=null)
+            {
+                try
+                {
+                    orderLogic.UpdateCount(data.id, data.count);
                     return Content(HttpStatusCode.OK, "Accion exitosa");
                 }
                 catch (Exception ex)

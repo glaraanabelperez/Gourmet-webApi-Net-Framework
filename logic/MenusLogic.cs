@@ -35,12 +35,42 @@ namespace logic
         {
             try
             {
+
+                //var menuList = context.Menus.Join(context.Meals,
+                //                                 menu => menu.idMeal,
+                //                                 meal => meal.id, 
+                //                                 (menu, meal) => new { Menu = menu, Meal = meal })
+                //                            .Where(menuMeal =>
+                //menuMeal.Menu.date.ToString() == date
+                //&& (menuMeal.Menu.state == States.available)
+                //&& (menuMeal.Meal.state == States.available))
+                //                            .Select(ob => new Menus()
+                //                            {
+                //                                id = ob.Menu.id,
+                //                                idMeal = ob.Menu.idMeal,
+                //                                date=ob.Menu.date,
+                //                                state=ob.Menu.state
+                //                            })
+                //                            .ToList();
+
+                var meals = context.Meals.Where(x => x.state == States.available).ToList();
+
                 var menuList = context.Menus.Where(x =>
                 x.date.ToString() == date && (x.state == States.available)).ToList();
+
+
+
                 List<MenusDto> list = new List<MenusDto>();
                 foreach (Menus m in menuList)
                 {
-                    list.Add(m.MapToMenuDto());
+                    foreach (Meals meal in meals)
+                    {
+                        if (meal.id == m.idMeal)
+                        {
+                            list.Add(m.MapToMenuDto());
+                        }
+                            
+                    }
                 }
 
                 return list;
@@ -76,7 +106,6 @@ namespace logic
                     {
                         continue;
                     }
- 
                    
                 }
                 catch (Exception e)

@@ -31,7 +31,7 @@ namespace logic
         {
             try
             {
-                var mealsList = context.Meals.ToList();
+                var mealsList = context.Meals.Where(x=> x.state== States.available).ToList();
                 List<MealsDto> list = new List<MealsDto>();
 
                 foreach (Meals m in mealsList)

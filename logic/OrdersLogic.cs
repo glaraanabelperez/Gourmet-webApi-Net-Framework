@@ -116,7 +116,12 @@ namespace logic
            
         }
 
-        public void Update(int id, string state, int id_user)
+        public void Insert(OrdersDto entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateState(int id, string state, int id_user)
         {
             try
             {
@@ -124,7 +129,7 @@ namespace logic
 
                 if (id_user == 1)
                 {
-                    
+
                     var validarFecha = new OrdersDateLessThanValidator();
                     validarFecha.ValidateAndThrow(OrderToUpdate.Menus.date);
                     OrderToUpdate.state = state;
@@ -145,16 +150,26 @@ namespace logic
             }
         }
 
-
-        public void Insert(OrdersDto entity)
+        public void UpdateCount(int id, int amount)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                Orders OrderToUpdate = context.Orders.Single(x => x.id == id);
 
-        public void Update(int id, OrdersDto entity)
-        {
-            throw new NotImplementedException();
-        }
+               
+                 var validarFecha = new OrdersGreaterThanValidator();
+                 validarFecha.ValidateAndThrow(OrderToUpdate.Menus.date);
+                OrderToUpdate.amount = amount;
+
+                context.Entry(OrderToUpdate).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        } 
+ 
     }
 
 }

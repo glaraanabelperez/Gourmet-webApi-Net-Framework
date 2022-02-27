@@ -43,8 +43,14 @@ namespace logic
         {
             try
             {
-                context.Users.Add(userDto.MapToUsers());
-                context.SaveChanges();
+                var user = (context.Users.Where(x =>
+                x.email == userDto.email ).SingleOrDefault());
+                if (user == null)
+                {
+                    context.Users.Add(userDto.MapToUsers());
+                    context.SaveChanges();
+                }
+                
             }
             catch (Exception e)
             {
@@ -67,7 +73,7 @@ namespace logic
             }
         }
 
-        public void Update(int id, UsersDto usersDto)
+        public UsersDto Update(int id, UsersDto usersDto)
         {
            
             try
@@ -76,6 +82,7 @@ namespace logic
                 userEntity = usersDto.MapToUsersUpdate(userEntity);
                 context.Entry(userEntity).State = EntityState.Modified;
                 context.SaveChanges();
+                return userEntity.MapToUsersDto();
             }
             catch (Exception e)
             {
