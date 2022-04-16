@@ -47,6 +47,9 @@ namespace Domain
 
         public int idCompany { get; set; }
 
+        [StringLength(20)]
+        public string companyname { get; set; }
+
         public virtual Companies Companies { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

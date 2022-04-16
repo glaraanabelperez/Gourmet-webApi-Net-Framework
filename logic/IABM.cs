@@ -10,8 +10,6 @@ namespace logic
     {
         List<T> GetAll();
 
-        List<T> GetBy(string date);
-
         void Insert (T entity);
 
         void Delete(int id);

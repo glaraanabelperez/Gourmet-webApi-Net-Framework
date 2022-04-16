@@ -21,5 +21,7 @@ namespace Domain
 
         public int idCompany { get; set; }
 
+        public string companyName { get; set; }
+
     }
 }

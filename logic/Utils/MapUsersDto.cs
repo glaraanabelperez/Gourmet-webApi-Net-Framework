@@ -21,7 +21,8 @@ namespace logic.Utils
                 c.lastName = user.lastName;
                 c.phone = user.phone;
                 c.direction = user.direction;
-     
+                c.companyName = user.companyname;
+
             return c;
         }
 
@@ -36,7 +37,7 @@ namespace logic.Utils
             u.direction = user.direction;
             u.state = States.available;
             u.idCompany = 1;
-
+            u.companyname = user.companyName;
             return u;
         }
 
@@ -48,7 +49,7 @@ namespace logic.Utils
             u.lastName = user.lastName;
             u.phone = user.phone;
             u.direction = user.direction;
-
+            u.companyname = user.companyName;
             return u;
         }
 

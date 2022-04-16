@@ -35,7 +35,7 @@ namespace logic.Utils
                 or.idUser = order.idUser;
                 or.deliveryAddress = order.deliveryAddress;
                 or.amount = order.amount;
-
+                or.observation = order.observation;
                 orderList.Add(or);
             }
 
@@ -62,7 +62,7 @@ namespace logic.Utils
             usersDto.lastName = user.lastName;
             usersDto.direction = user.direction;
             usersDto.phone = user.phone;
-
+            usersDto.companyName = user.companyName;
             return usersDto;
         }
 

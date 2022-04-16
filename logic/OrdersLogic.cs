@@ -17,11 +17,10 @@ namespace logic
             try
             {
                 var validarFecha = new OrdersGreaterThanValidator();
-                Orders Order = context.Orders.Single(x => x.id == id);
-                validarFecha.ValidateAndThrow(Order.Menus.date);
+                Orders order = context.Orders.Single(x => x.id == id);
+                validarFecha.ValidateAndThrow(order.Menus.date);
 
-                Order.state = States.cancel;
-                context.Entry(Order).State = EntityState.Modified;
+                context.Orders.Remove(order);
                 context.SaveChanges();
             }
             catch (Exception e)

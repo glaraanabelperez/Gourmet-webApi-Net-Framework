@@ -21,8 +21,10 @@ namespace logic.Utils
                     o.amount = order.amount;
                     o.state = order.state;
                     o.deliveryAddress = order.deliveryAddress;
+                    o.observation = order.observation;
 
-                return o;
+
+            return o;
             }
 
             public static Orders MapToOrder(this OrdersDto order)
@@ -34,8 +36,9 @@ namespace logic.Utils
                     o.amount = order.amount;
                     o.state = States.pending;
                     o.deliveryAddress = order.deliveryAddress;
+                    o.observation = order.observation;
 
-                return o;
+            return o;
             }
 
      

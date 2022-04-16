@@ -17,6 +17,9 @@ namespace WebAppi.Controllers
 
         public string state { get; set; }
 
+        public string observation { get; set; }
+
+
 
     }
 }

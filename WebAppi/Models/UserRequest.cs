@@ -16,6 +16,7 @@ namespace WebAppi.Controllers
 
         public string direction { get; set; }
 
+        public string companyName { get; set; }
 
     }
 }

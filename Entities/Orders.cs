@@ -26,6 +26,10 @@ namespace Domain
 
         public int amount { get; set; }
 
+    
+        [StringLength(100)]
+        public string observation { get; set; }
+
         public virtual Menus Menus { get; set; }
 
         public virtual Users Users { get; set; }

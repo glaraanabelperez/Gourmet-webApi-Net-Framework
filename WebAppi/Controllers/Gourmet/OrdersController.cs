@@ -52,12 +52,12 @@ namespace WebAppi.Controllers.Gourmet
         }
 
         [HttpGet]
-        public IHttpActionResult GetBy(int id, [FromUri] string date)
+        public IHttpActionResult GetBy(int cliente, [FromUri] string date)
         {
             try
             {
                 List<OrdersDto> orderDToList;
-                orderDToList = orderLogic.GetAllByUser(id, date);
+                orderDToList = orderLogic.GetAllByUser(cliente, date);
                 return Ok(orderDToList);
             }
             catch (Exception ex)

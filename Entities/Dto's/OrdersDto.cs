@@ -16,6 +16,8 @@ namespace Domain
 
         public int amount { get; set; }
 
+        public string observation { get; set; }
+
         public virtual MenusDto MenusDto { get; set; }
 
         public virtual UsersDto userDto { get; set; }

@@ -34,22 +34,13 @@ namespace logic
             }
         }
 
-        public List<UsersDto> GetBy(string date)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Insert(UsersDto userDto)
         {
             try
             {
-                var user = (context.Users.Where(x =>
-                x.email == userDto.email ).SingleOrDefault());
-                if (user == null)
-                {
+   
                     context.Users.Add(userDto.MapToUsers());
                     context.SaveChanges();
-                }
                 
             }
             catch (Exception e)
@@ -90,7 +81,6 @@ namespace logic
             }
         }
 
-
-
+  
     }
 }
